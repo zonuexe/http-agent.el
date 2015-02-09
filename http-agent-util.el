@@ -45,5 +45,16 @@ DEFAULT-URL: "
     (url-default-expander url-obj def-obj)
     url-obj))
 
+(defun http-agent-util:make-query (query-alist)
+  "Make query from `QUERY' alist."
+  (when query-alist
+    (mapconcat
+     (lambda (x)
+       (let ((key (url-hexify-string (car x)))
+             (val (url-hexify-string (cdr x))))
+         (concat key "=" val)))
+     query-alist
+     "&")))
+
 (provide 'http-agent-util)
 ;;; http-agent-util.el ends here

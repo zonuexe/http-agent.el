@@ -42,4 +42,26 @@
               (http-agent-util:merge-url (plist-get it :input)
                                          (plist-get it :default)))))))
 
+(ert-deftest http-agent-util-test\#make-query ()
+  (let ((data
+         (list
+          (list
+           "empty"
+           :expected nil
+           :src      '())
+          (list
+           "2-elm"
+           :expected "a=b&c=d"
+           :src      '(("a" . "b") ("c" . "d")))
+          (list "Japanese"
+           :expected "%E3%81%BB%E3%81%92=%E3%81%B5%E3%81%8C"
+           :src      '(("ほげ" . "ふが")))
+          (list "has &"
+           :expected "org=B%26G"
+           :src      '(("org" . "B&G"))))))
+    (--each data
+      (should (string=
+               (plist-get (cdr it) :expected)
+               (http-agent-util:make-query (plist-get (cdr it) :src)))))))
+
 ;;; http-agent-util-test.el ends here
