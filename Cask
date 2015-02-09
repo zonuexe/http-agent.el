@@ -2,8 +2,7 @@
 (source melpa)
 
 (package "http-agent" "0.0.1" "HTTP Agent")
-(package-file "http-agent.el")
-(package-file "http-agent-agent.el")
+(package-file "http-agent-util.el")
 
 (depends-on "dash")
 (depends-on "json-reformat")
