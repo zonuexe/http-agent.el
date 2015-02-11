@@ -29,11 +29,44 @@
 
 (require 'url-expand)
 
-(defun http-agent-util:force-url (url)
+(defconst http-agent/http-methods
+  '("HEAD" "GET" "POST" "PUT" "DELETE"))
+
+(defconst http-agent/standard-http-headers
+  '("Data"
+    "Cache-Control"
+    "MIME-Version"
+    "Authorization"
+    "If-Modified-Since"
+    "Referer"
+    "User-Agent"
+    "Accept"
+    "Accept-Charset"
+    "Accept-Encoding"
+    "Accept-Language"
+    "Host"
+    "If-Match"
+    "If-None-Match"
+    "If-Range"
+    "If-Unmodified-Since"
+    "Range"
+    "Allow"
+    "Content-Encoding"
+    "Content-Type"
+    "Expires"
+    "Last-Modified"
+    "Content-Base"
+    "Content-Language"
+    "Content-Location"
+    "Content-MD5"
+    "Content-Range"
+    "Etag"))
+
+(defun http-agent-util:force-url (url-or-string)
   "Return url-obj."
-  (if (url-p url)
-      url
-    (url-generic-parse-url url)))
+  (if (url-p url-or-string)
+      url-or-string
+    (url-generic-parse-url url-or-string)))
 
 (defun http-agent-util:merge-url (url default-url)
   "Merge URL object.
