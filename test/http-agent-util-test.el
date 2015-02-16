@@ -64,4 +64,22 @@
                (plist-get (cdr it) :expected)
                (http-agent-util:make-query (plist-get (cdr it) :src)))))))
 
+(ert-deftest http-agent-util-test\#parse-header-line ()
+  (let ((data
+         (list
+          (list
+           :expected '("Header" . "Foo")
+           :src      "Header: Foo")
+          (list
+           :expected '("Header" . "Foo")
+           :src      "Header : Foo")
+          (list
+           :expected '("Header" . "Foo:Foo : Foo")
+           :src      "Header: Foo:Foo : Foo")
+          )))
+    (--each data
+      (should (equal
+               (plist-get it :expected)
+               (http-agent-util:parse-header-line (plist-get it :src)))))))
+
 ;;; http-agent-util-test.el ends here

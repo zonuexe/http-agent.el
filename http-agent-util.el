@@ -89,5 +89,10 @@ DEFAULT-URL: "
      query-alist
      "&")))
 
+(defun http-agent-util:parse-header-line (header-line)
+  (let ((lst (-map 's-trim (s-split-up-to ": " header-line 1))))
+    (cons (car lst)
+          (car (cdr lst)))))
+
 (provide 'http-agent-util)
 ;;; http-agent-util.el ends here
